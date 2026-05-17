@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Language Learning App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7fa;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .container {
+      width: 700px;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    .card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border-left: 5px solid #007bff;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+    }
+
+    .category {
+      display: inline-block;
+      background: #e9ecef;
+      padding: 8px 15px;
+      border-radius: 20px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Language Learning App</h1>
+
+  <!-- Categories -->
+  <div class="section">
+    <h2>Categories</h2>
+    <div class="category">Vocabulary</div>
+    <div class="category">Grammar</div>
+    <div class="category">Daily Phrases</div>
+    <div class="category">Pronunciation</div>
+  </div>
+
+  <!-- Daily Lesson -->
+  <div class="section">
+    <h2>Daily Flashcard</h2>
+    <div class="card">
+      <h3 id="word">Hello</h3>
+      <p><strong>Translation:</strong> <span id="translation">Hola</span></p>
+      <p><strong>Pronunciation:</strong> <span id="pronunciation">OH-lah</span></p>
+      <button onclick="nextFlashcard()">Next Flashcard</button>
+    </div>
+  </div>
+
+  <!-- Quiz Section -->
+  <div class="section">
+    <h2>Quick Quiz</h2>
+    <div class="card">
+      <p><strong>What is the translation of "Thank You" in Spanish?</strong></p>
+      <input type="text" id="quizAnswer" placeholder="Type your answer">
+      <button onclick="checkAnswer()">Submit Answer</button>
+      <div class="result" id="quizResult"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const flashcards = [
+    {
+      word: "Hello",
+      translation: "Hola",
+      pronunciation: "OH-lah"
+    },
+    {
+      word: "Thank You",
+      translation: "Gracias",
+      pronunciation: "GRA-see-as"
+    },
+    {
+      word: "Good Morning",
+      translation: "Buenos Días",
+      pronunciation: "BWE-nos DEE-as"
+    },
+    {
+      word: "Please",
+      translation: "Por Favor",
+      pronunciation: "POR fa-VOR"
+    },
+    {
+      word: "Goodbye",
+      translation: "Adiós",
+      pronunciation: "Ah-DEE-os"
+    }
+  ];
+
+  let currentIndex = 0;
+
+  function nextFlashcard() {
+    currentIndex = (currentIndex + 1) % flashcards.length;
+
+    document.getElementById("word").innerText = flashcards[currentIndex].word;
+    document.getElementById("translation").innerText = flashcards[currentIndex].translation;
+    document.getElementById("pronunciation").innerText = flashcards[currentIndex].pronunciation;
+  }
+
+  function checkAnswer() {
+    const answer = document.getElementById("quizAnswer").value.trim().toLowerCase();
+    const result = document.getElementById("quizResult");
+
+    if (answer === "gracias") {
+      result.innerText = "Correct! Well done 🎉";
+      result.style.color = "green";
+      localStorage.setItem("quizProgress", "Passed");
+    } else {
+      result.innerText = "Incorrect. Correct answer is: Gracias";
+      result.style.color = "red";
+    }
+  }
+</script>
+
+</body>
+</html>
